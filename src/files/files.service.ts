@@ -7,7 +7,7 @@ import { PrismaService } from 'src/prisma/prisma.service';
 export class FilesService {
   constructor(private prisma: PrismaService) {}
   create(createFileDto: CreateFileDto) {
-    return 'This action adds a new file';
+    return this.prisma.file.create({ data: createFileDto });
   }
 
   findAll() {
@@ -15,14 +15,17 @@ export class FilesService {
   }
 
   findOne(id: number) {
-    return `This action returns a #${id} file`;
+    return this.prisma.file.findUnique({ where: { id } });
   }
 
   update(id: number, updateFileDto: UpdateFileDto) {
-    return `This action updates a #${id} file`;
+    return this.prisma.file.update({
+      where: { id },
+      data: updateFileDto,
+    });
   }
 
   remove(id: number) {
-    return `This action removes a #${id} file`;
+    this.prisma.file.delete({ where: { id } });
   }
 }
