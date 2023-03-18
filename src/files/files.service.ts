@@ -1,15 +1,17 @@
 import { Injectable } from '@nestjs/common';
 import { CreateFileDto } from './dto/create-file.dto';
 import { UpdateFileDto } from './dto/update-file.dto';
+import { PrismaService } from 'src/prisma/prisma.service';
 
 @Injectable()
 export class FilesService {
+  constructor(private prisma: PrismaService) {}
   create(createFileDto: CreateFileDto) {
     return 'This action adds a new file';
   }
 
   findAll() {
-    return `This action returns all files`;
+    return this.prisma.file.findMany();
   }
 
   findOne(id: number) {
