@@ -57,6 +57,10 @@ export class AuthService {
       email: foundUser.email,
     });
 
+    if (!token) {
+      throw new ForbiddenException('Invalid credentials');
+    }
+
     res.cookie('token', token, {});
 
     return res.send({ message: 'Logged in succefully' });
